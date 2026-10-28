@@ -1,0 +1,6 @@
+# name x y z rx ry rz ux uy uz fx fy fz
+worm -32.0 0.0 32.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0
+# name x y z rx ry rz ux uy uz fx fy fz
+worm 32.0 0.0 32.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0
+# name x y z rx ry rz ux uy uz fx fy fz
+worm 32.0 0.0 -32.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0
