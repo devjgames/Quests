@@ -7,7 +7,7 @@ public class App {
         Game game = null;
 
         try {
-            game = new Game(900, 600, "", true);
+            game = new Game(900, 600, "Worm", true);
 
             game.getResources().setLoader((file, extension) -> {
                 if(file.isDirectory()) {
@@ -23,14 +23,6 @@ public class App {
             while(game.beginFrame()) {
                 gs.update();
                 game.endFrame();
-
-                int iNode = gs.getSelectedNode();
-                String name = "";
-
-                if(iNode >= 0) {
-                    name = gs.getComponent(iNode).toString() + ", ";
-                }
-                game.setTitle(gs.getSceneName() + ", " + name + "ESC = Quit");
             }
         } finally {
             if(game != null) {

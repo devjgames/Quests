@@ -7,7 +7,7 @@ public class App {
         Game game = null;
 
         try {
-            game = new Game(900, 600, "", true);
+            game = new Game(900, 600, "DunKit", true);
 
             GameSystem gs = new GameSystem2();
 
@@ -16,14 +16,6 @@ public class App {
             while(game.beginFrame()) {
                 gs.update();
                 game.endFrame();
-
-                int iNode = gs.getSelectedNode();
-                String name = "";
-
-                if(iNode >= 0) {
-                    name = gs.getComponent(iNode).toString() + ", ";
-                }
-                game.setTitle(gs.getSceneName() + ", " + name + "ESC = Quit");
             }
         } finally {
             if(game != null) {
