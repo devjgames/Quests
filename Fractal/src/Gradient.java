@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Random;
 
 import org.game.BlendState;
 import org.game.ColorFormat;
@@ -26,12 +25,12 @@ public class Gradient extends Resource {
             new String(IOHelper.readAllBytes(Gradient.class, "/GradientFragment.glsl")),
             new VertexAttribute("iPosition", 2)
         );
-        target = new RenderTarget(512, 8, false, ColorFormat.COLOR);
+        target = new RenderTarget(16, 512, false, ColorFormat.COLOR);
         target.getTexture(0).bind();
         target.getTexture(0).toLinear(true);
         target.getTexture(0).unBind();
 
-        newRandom(50, 7);
+        generate(7);
     }
 
     public int getCount() {
@@ -42,22 +41,6 @@ public class Gradient extends Resource {
         return colors[i];
     }
 
-    public void shift() {
-        ColorEntry start = colors[0];
-        int count = colors.length;
-
-        for(int i = 0; i != getCount() - 1; i++) {
-            colors[i] = colors[i + 1];
-        }
-        colors[getCount() - 1] = start;
-
-        colors[0].position = 0;
-        for(int i = 1; i != count - 1; i++) {
-            colors[i].position = i / (float)(count - 1);
-        }
-        colors[getCount() - 1].position = 1;
-    }
-
     public void sort() {
         Arrays.sort(colors);
     }
@@ -66,18 +49,24 @@ public class Gradient extends Resource {
         return target;
     }
 
-    public void newRandom(int seed, int count) {
+    public void generate(int count) {
         if(count < 3 || count > 16) {
             System.out.println("count < 3 || coubt > 16");
             return ;
         }
 
-        Random random = new Random(seed);
+        float c = 0;
 
         colors = new ColorEntry[count];
-        colors[0] = new ColorEntry(new Vec4(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1), 0);
+        colors[0] = new ColorEntry(new Vec4(c, c, c, 1), 0);
+        c = 1;
         for(int i = 1; i != count - 1; i++) {
-            colors[i] = new ColorEntry(new Vec4(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1), i / (float)(count - 1));
+            colors[i] = new ColorEntry(new Vec4(c, c, c, 1), i / (float)(count - 1));
+            if(c > 0.5f) {
+                c = 0;
+            } else {
+                c = 1;
+            }
         }
         colors[count - 1] = new ColorEntry(colors[0].color, 1);
     }

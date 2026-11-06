@@ -12,6 +12,7 @@ import org.game.IOHelper;
 import org.game.Log;
 import org.game.RenderTarget;
 import org.game.SpriteRenderer;
+import org.game.Texture;
 import org.game.UI;
 import org.game.UIColors;
 import org.lwjgl.glfw.GLFW;
@@ -71,6 +72,7 @@ public class App {
                 game.getResources().load(new File("sprites.png")), 16, 10, 12, 14, 5
             );
             RenderTarget target = game.getResources().manage(new RenderTarget(1024, 1024, false, ColorFormat.COLOR));
+            Texture arrow = game.getResources().load(new File("arrow.png"));
             boolean down = false;
             int s = game.getScale();
             boolean setText = true;
@@ -78,12 +80,14 @@ public class App {
             String scriptName = "Line.js";
             File imageFile = new File("images", "image1.png");
             float amount = 0.9f;
-            int seed = 60;
             int count = 7;
             String info = "";
             int i = -2;
             boolean doPop = false;
             boolean renderImage = false;
+            int drag = -1;
+            int lastDrag = -1;
+            boolean setColor = false;
 
             GLFW.glfwSetWindowSizeCallback(game.getWindow(), new GLFWWindowSizeCallbackI() {
 
@@ -103,7 +107,7 @@ public class App {
             while(game.beginFrame()) {
                 int x = 200 * s;
                 int y = 10 * s;
-                int w = game.getFrameWidth() - 210 * s;
+                int w = game.getFrameWidth() - (210 + 32 + 8) * s;
                 int h = game.getFrameHeight() - 60 * s;
 
                 if(doPop) {
@@ -117,6 +121,10 @@ public class App {
                     target.getTexture(0).save(imageFile);
                     target.getTexture(0).unBind();
                     renderImage = false;
+                }
+
+                if(drag != -1 || lastDrag != -1) {
+                    fractal.gradient.render(quad);
                 }
 
                 if(render) {
@@ -153,27 +161,19 @@ public class App {
                 if(ui.button("render.button", "Render", false, 5)) {
                     render = true;
                 }
-                if((r = ui.text("seed.count.text", "50 7", 8, setText, 5)) != null) {
+                if((r = ui.text("seed.count.text", "7", 5, setText, 5)) != null) {
                     try {
-                        String[] tokens = r.split("\\s+");
+                        int ic = Integer.parseInt(r.trim());
 
-                        if(tokens.length >= 2) {
-                            int is = Integer.parseInt(tokens[0]);
-                            int ic = Integer.parseInt(tokens[1]);
-
-                            seed = is;
-                            count = ic;
-                        }
+                        count = ic;
                     } catch(NumberFormatException ex) {
                     }
                 }
-                if(ui.button("rand.button", "Rand", false, 5)) {
-                    fractal.gradient.newRandom(seed, count);
+                if(ui.button("rand.button", "Gen", false, 5)) {
+                    fractal.gradient.generate(count);
                     render = true;
-                }
-                if(ui.button("Shift.left.button", "Shift", false, 5)) {
-                    fractal.gradient.shift();
-                    render = true;
+                    drag = -1;
+                    lastDrag = -1;
                 }
                 ui.label("info.label", info, 50, 5);
                 ui.addRow(10);
@@ -312,7 +312,52 @@ public class App {
                     } catch(NumberFormatException ex) {
                     }
                 }
+                if(lastDrag != -1) {
+                    ColorEntry c = fractal.gradient.get(lastDrag);
+
+                    ui.addRow(5);
+                    ui.label("entry.color.label", "Color", 15, 0);
+                    ui.addRow(0);
+                    if((r = ui.text("entry.color.text", "" + c.color.x + " " + c.color.y + " " + c.color.z, 16, setColor, 0)) != null) {
+                        try {
+                            String[] tokens = r.trim().split("\\s+");
+
+                            if(tokens.length >= 3) {
+                                float ir = Float.parseFloat(tokens[0]);
+                                float ig = Float.parseFloat(tokens[1]);
+                                float ib = Float.parseFloat(tokens[2]);
+
+                                c.color.set(ir, ig, ib, 1);
+
+                                if(lastDrag == 0) {
+                                    c = fractal.gradient.get(fractal.gradient.getCount() - 1);
+                                    c.color.set(ir, ig, ib, 1);
+                                }
+                            }
+                        } catch(NumberFormatException ex) {
+                        }
+                    }
+                }
                 ui.end(game);
+                spriteRenderer.begin(fractal.gradient.getTarget().getTexture(0));
+                spriteRenderer.push(
+                    0, 0, fractal.gradient.getTarget().getWidth(), fractal.gradient.getTarget().getHeight(),
+                    x + w + 10 * s, 50 * s, fractal.gradient.getTarget().getWidth() * s, fractal.gradient.getTarget().getHeight() * s,
+                    1, 1, 1, 1, 1, 1, 1, 1, false
+                );
+                spriteRenderer.end();
+                spriteRenderer.begin(arrow);
+                for(int e = 1; e != fractal.gradient.getCount() - 1; e++) {
+                    float p = fractal.gradient.get(e).position;
+                    int py = 50 * s + (int)(p * fractal.gradient.getTarget().getHeight()) * s;
+
+                    spriteRenderer.push(
+                        0, 0, arrow.width, arrow.height,
+                        x + w + 10 * s + 32, py - arrow.height / 2 * s, arrow.width / 2 * s, arrow.height / 2 * s,
+                        1, 1, 1, 1, 1, 1, 1, 1, false
+                    );
+                }
+                spriteRenderer.end();
                 GFX.setViewport(x, y, w, h);
                 spriteRenderer.setProjection(w, h);
                 spriteRenderer.begin(fractal.getTarget().getTexture(0));
@@ -322,6 +367,7 @@ public class App {
 
                 setText = false;
                 selectedScript = -2;
+                setColor = false;
 
                 int mx = game.getMouseX() * s - x;
                 int my = h - ((h + 50 * s) - game.getMouseY() * s);
@@ -333,8 +379,56 @@ public class App {
                             fractal.panZoom(mx, my, w, h, 0.9f);
                             render = true;
                         }
+
+                        mx = game.getMouseX() * s;
+                        my = game.getMouseY() * s;
+
+                        if(mx > x + w + 10 * s && mx < x + w + 10 * s + 32 && my > 50 * s && my < 50 * s + fractal.gradient.getTarget().getHeight() * s) {
+                            lastDrag = 0;
+                            setColor = true;
+                        } else {
+                            for(int e = 1; e != fractal.gradient.getCount() - 1; e++) {
+                                float p = fractal.gradient.get(e).position;
+                                int py = 50 * s + (int)(p * fractal.gradient.getTarget().getHeight()) * s;
+                                int x1 = x + w + 10 * s + 32;
+                                int y1 = py - arrow.height / 2 * s;
+                                int x2 = x1 + arrow.width / 2 * s;
+                                int y2 = y1 + arrow.height / 2 * s;
+
+                                if(mx >= x1 && mx <= x2 && my >= y1 && my <= y2) {
+                                    drag = e;
+                                    lastDrag = e;
+                                    setColor = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(drag != -1) {
+                        my = game.getMouseY() - 50;
+
+                        float p = my / (float)fractal.gradient.getTarget().getHeight();
+
+                        p = Math.max(0, Math.min(1, p));
+                        fractal.gradient.get(drag).position = p;
+
+                        ColorEntry e = fractal.gradient.get(drag);
+
+                        fractal.gradient.sort();
+
+                        for(int ie = 1; ie != fractal.gradient.getCount() - 1; ie++) {
+                            if(fractal.gradient.get(ie) == e) {
+                                lastDrag = ie;
+                                drag = ie;
+                                break;
+                            }
+                        }
                     }
                 } else {
+                    if(drag != -1) {
+                        render = true;
+                    }
+                    drag = -1;
                     down = false;
                 }
             }

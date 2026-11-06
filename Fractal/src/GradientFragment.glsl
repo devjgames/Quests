@@ -11,11 +11,11 @@ uniform int uCount;
 
 void main() {
     vec4 color = uColors[0];
-    float x = vPosition.x;
+    float y = vPosition.y;
 
     for(int i = uCount - 1; i != 0; i--) {
-        if(x <= uPositions[i] && x >= uPositions[i - 1]) {
-            color = mix(uColors[i - 1], uColors[i], (x - uPositions[i - 1]) / (uPositions[i] - uPositions[i - 1]));
+        if(y <= uPositions[i] && y >= uPositions[i - 1]) {
+            color = mix(uColors[i - 1], uColors[i], (y - uPositions[i - 1]) / (uPositions[i] - uPositions[i - 1]));
         }
     }
     oColor = color;

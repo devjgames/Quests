@@ -63,7 +63,7 @@ void main() {
     if(i == uMaxCount) {
         color = vec4(0.0, 0.0, 0.0, 1.0);
     } else {
-        color = texture(uGradient, vec2(sin(float(min) * uFrequency) * 0.5 + 0.5, 0.0));
+        color = texture(uGradient, vec2(0.0, sin(float(min) * uFrequency) * 0.5 + 0.5));
     }
     oColor = color;
 }
