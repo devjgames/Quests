@@ -15,6 +15,7 @@ import org.game.SpriteRenderer;
 import org.game.Texture;
 import org.game.UI;
 import org.game.UIColors;
+import org.game.Vec4;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWWindowSizeCallbackI;
 
@@ -316,26 +317,17 @@ public class App {
                     ColorEntry c = fractal.gradient.get(lastDrag);
 
                     ui.addRow(5);
-                    ui.label("entry.color.label", "Color", 15, 0);
-                    ui.addRow(0);
-                    if((r = ui.text("entry.color.text", "" + c.color.x + " " + c.color.y + " " + c.color.z, 16, setColor, 0)) != null) {
-                        try {
-                            String[] tokens = r.trim().split("\\s+");
+                    c.color.x = ui.slider("r.slider", 15, c.color.x, setColor, 0);
+                    ui.addRow(5);
+                    c.color.y = ui.slider("g.slider", 15, c.color.y, setColor, 0);
+                    ui.addRow(5);
+                    c.color.z = ui.slider("b.slider", 15, c.color.z, setColor, 0);
 
-                            if(tokens.length >= 3) {
-                                float ir = Float.parseFloat(tokens[0]);
-                                float ig = Float.parseFloat(tokens[1]);
-                                float ib = Float.parseFloat(tokens[2]);
-
-                                c.color.set(ir, ig, ib, 1);
-
-                                if(lastDrag == 0) {
-                                    c = fractal.gradient.get(fractal.gradient.getCount() - 1);
-                                    c.color.set(ir, ig, ib, 1);
-                                }
-                            }
-                        } catch(NumberFormatException ex) {
-                        }
+                    if(lastDrag == 0) {
+                        Vec4 color = c.color;
+                        
+                        c = fractal.gradient.get(fractal.gradient.getCount() - 1);
+                        c.color.set(color.x, color.y, color.z, 1);
                     }
                 }
                 ui.end(game);
