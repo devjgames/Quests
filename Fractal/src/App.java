@@ -345,7 +345,7 @@ public class App {
 
                     spriteRenderer.push(
                         0, 0, arrow.width, arrow.height,
-                        x + w + 10 * s + 32, py - arrow.height / 2 * s, arrow.width / 2 * s, arrow.height / 2 * s,
+                        x + w + 10 * s + 16 * s, py - arrow.height / 2 * s, arrow.width / 2 * s, arrow.height / 2 * s,
                         1, 1, 1, 1, 1, 1, 1, 1, false
                     );
                 }
@@ -368,21 +368,21 @@ public class App {
                     if(!down) {
                         down = true;
                         if(mx >= 0 && mx <= w && my >= 0 && my <= h) {
-                            fractal.panZoom(mx, my, w, h, 0.9f);
+                            fractal.panZoom(mx, my, w, h, amount);
                             render = true;
                         }
 
                         mx = game.getMouseX() * s;
                         my = game.getMouseY() * s;
 
-                        if(mx > x + w + 10 * s && mx < x + w + 10 * s + 32 && my > 50 * s && my < 50 * s + fractal.gradient.getTarget().getHeight() * s) {
+                        if(mx > x + w + 10 * s && mx < x + w + 10 * s + 16 * s && my > 50 * s && my < 50 * s + fractal.gradient.getTarget().getHeight() * s) {
                             lastDrag = 0;
                             setColor = true;
                         } else {
                             for(int e = 1; e != fractal.gradient.getCount() - 1; e++) {
                                 float p = fractal.gradient.get(e).position;
                                 int py = 50 * s + (int)(p * fractal.gradient.getTarget().getHeight()) * s;
-                                int x1 = x + w + 10 * s + 32;
+                                int x1 = x + w + 10 * s + 16 * s;
                                 int y1 = py - arrow.height / 2 * s;
                                 int x2 = x1 + arrow.width / 2 * s;
                                 int y2 = y1 + arrow.height / 2 * s;
