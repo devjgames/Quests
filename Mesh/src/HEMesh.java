@@ -250,12 +250,7 @@ public class HEMesh {
             vertex.position.add(n.x * a, n.y * a, n.z * a);
         }
     }
- 
-    // ------------------------------------------------------------------
-    // helpers
-    // ------------------------------------------------------------------
- 
-    // the edge in the same face whose next is the given edge
+
     private Edge prevEdge(Edge edge) {
         Edge p = edge;
  
@@ -265,8 +260,6 @@ public class HEMesh {
         return p;
     }
  
-    // collects every edge that starts at the given vertex, walking around the vertex.
-    // returns true if the vertex lies on a boundary (open fan) rather than a closed ring
     private boolean collectRing(Vertex vertex, List<Edge> out) {
         Edge start = edges.get(vertex.edge);
         Edge e = start;
@@ -307,7 +300,6 @@ public class HEMesh {
         }
     }
  
-    // vertex index loops and per corner texture coordinates for every face
     private void snapshotFaces(List<int[]> indices, List<Vec2[]> uvs) {
         for(Face face : faces) {
             List<Integer> vs = new ArrayList<>();
@@ -331,7 +323,6 @@ public class HEMesh {
         }
     }
  
-    // throws away all faces and edges and rebuilds them from the given loops, vertices are kept
     private void rebuildFaces(List<int[]> indices, List<Vec2[]> uvs) {
         edges.clear();
         faces.clear();
@@ -359,8 +350,6 @@ public class HEMesh {
     private static Vec2 mid(Vec2 a, Vec2 b) {
         return vec2((a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f);
     }
- 
-    // ------------------------------------------------------------------
  
     public void calcNormals(boolean smooth) {
         for(Face face : faces) {
@@ -401,8 +390,6 @@ public class HEMesh {
         }
     }
  
-    // creates a box centered on the origin. Only the outside grid vertices exist, faces share them.
-    // Faces are wound counter clockwise when seen from outside. Call calcNormals / calcTextureCoordinate afterwards.
     public void createBox(float sizeX, float sizeY, float sizeZ, int divsX, int divsY, int divsZ) {
         clear();
  
@@ -448,8 +435,6 @@ public class HEMesh {
         }
     }
  
-    // splits every n-gon into n quads (face center + edge midpoints). Positions are linear, use smooth() to round it.
-    // Texture coordinates are split per face corner so UV seams are kept. Normals must be recalculated afterwards.
     public void subdivide(int times) {
         for(int i = 0; i != times; i++) {
             List<int[]> faceIdx = new ArrayList<>();
@@ -513,8 +498,6 @@ public class HEMesh {
         }
     }
  
-    // Catmull-Clark vertex update (interior: (F + 2R + (n-3)P) / n, boundary: 3/4 P + 1/8 (b1 + b2)).
-    // Normals must be recalculated afterwards.
     public void smooth(int times) {
         for(int i = 0; i != times; i++) {
             int count = vertices.size();
@@ -529,7 +512,6 @@ public class HEMesh {
                 pos[v * 3 + 2] = p.z;
             }
  
-            // face centers from the original positions
             float[] centers = new float[faces.size() * 3];
  
             for(Face face : faces) {
@@ -626,9 +608,6 @@ public class HEMesh {
         }
     }
  
-    // extrudes the face along its normal. The face is removed, one new vertex is added per face corner,
-    // and the new side quads and end cap are joined to the original vertices (no exploded faces).
-    // Texture coordinates of the new faces reuse the original corner coordinates; call calcTextureCoordinate to regenerate.
     public void extrude(int face, float amount) {
         if(face < 0 || face >= faces.size()) {
             throw new IllegalArgumentException("face out of bounds");
@@ -643,7 +622,6 @@ public class HEMesh {
         Vec2[] uv = faceUV.get(face);
         int n = c.length;
  
-        // Newell normal, so this doesn't depend on calcNormals having been called
         float nx = 0, ny = 0, nz = 0;
  
         for(int k = 0; k != n; k++) {
@@ -677,7 +655,6 @@ public class HEMesh {
         for(int k = 0; k != n; k++) {
             int j = (k + 1) % n;
  
-            // bottom edge runs opposite to the neighbouring face's edge so it pairs with it
             faceIdx.add(new int[] { c[k], c[j], top[j], top[k] });
             faceUV.add(new Vec2[] {
                 vec2(uv[k].x, uv[k].y), vec2(uv[j].x, uv[j].y),

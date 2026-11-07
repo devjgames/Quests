@@ -58,7 +58,7 @@ public class Basic3 extends Demo {
 
         mesh.build(vertexBuffer, vertexElementBuffer);
 
-        ledge = resources.load(new File("ledge.png"));
+        ledge = resources.load(new File("stone.png"));
         renderer = resources.manage(new BasicRenderer());
 
         down = drag = false;
@@ -69,10 +69,14 @@ public class Basic3 extends Demo {
         projection.identity().perspective((float)Math.PI / 3, w / (float)h, 1, 25000);
         view.identity().lookAt(eye, target, up);
         renderer.begin(w, h, 0.15f, 0.15f, 0.15f, 1);
-        renderer.setLightCount(1);
-        renderer.setLightColor(0, 1, 1, 1, 1);
+        renderer.setLightCount(2);
+        renderer.setLightColor(0, 8, 4, 0, 1);
         renderer.setLightRadius(0, 600);
-        renderer.setLightPosition(0, eye);
+        renderer.setLightPosition(0, 300, 300, 300);
+        renderer.setLightColor(1, 0, 4, 8, 1);
+        renderer.setLightRadius(1, 600);
+        renderer.setLightPosition(1, -300, -300, -300);
+        renderer.setAmbientColor(0.5f, 0.5f, 0.5f, 1);
         renderer.setTexture(ledge);
         renderer.setProjection(projection);
         renderer.setView(view);

@@ -55,16 +55,7 @@ public class App {
                 GFX.setCullState(CullState.BACK);
                 ui.begin();
                 ui.moveTo(10, 10);
-                if(running) {
-                    Demo demo = (Demo)demos.get(iDemo);
-
-                    demo.ui(game, resources, ui);
-                    ui.addRow(5);
-                    if(ui.button("App.quit.button", "Quit", false, 0)) {
-                        game.getResources().unManage(resources);
-                        running = false;
-                    }
-                } else {
+                if(!running) {
                     iDemo = ui.list("App.demo.list", demos, 16, 16, selDemo, 0);
                     if(iDemo >= 0) {
                         ui.addRow(5);
@@ -78,8 +69,17 @@ public class App {
                         }
                     }
                 }
-                ui.addRow(5);
-                if(ui.button("App.si.button", "SI", game.isSwapOne(), 0)) {
+                if(running) {
+                    Demo demo = (Demo)demos.get(iDemo);
+
+                    demo.ui(game, resources, ui);
+                    ui.addRow(5);
+                    if(ui.button("App.quit.button", "Quit", false, 0)) {
+                        game.getResources().unManage(resources);
+                        running = false;
+                    }
+                }
+                if(ui.button("App.si.button", "SI", game.isSwapOne(), 5)) {
                     game.toggleSwapInterval();
                 }
                 if(ui.button("App.fs.button", "FS", game.isFullscreen(), 5)) {
