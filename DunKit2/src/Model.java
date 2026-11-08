@@ -36,6 +36,9 @@ public class Model extends GameComponent {
             if(meshName.equals("orb.obj")) {
                 node.scale.mul(1.25f, 1.25f, 1.25f);
             }
+            if(meshName.equals("axis.obj")) {
+                node.scale.mul(0.5f);
+            }
         } else if(meshName.equals("door.obj")) { 
             mesh.put(MeshLoader.AMBIENT_COLOR, new Vec4(0.35f, 0.35f, 0.35f, 1));
             node.data.put("y", node.position.y);

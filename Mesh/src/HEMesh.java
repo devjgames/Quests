@@ -132,6 +132,38 @@ public class HEMesh {
     public Face getFace(int i) {
         return faces.get(i);
     }
+
+    public Face findFace(Vec3 center) {
+        Face found = null;
+        Vec3 c = new Vec3();
+        float min = Float.MAX_VALUE;
+
+        for(Face face : faces) {
+            Edge edge = edges.get(face.edge);
+            int n = 0;
+
+            c.zero();
+            do {
+                c.add(vertices.get(edge.vertex).position);
+                edge = edges.get(edge.next);
+                n++;
+            } while(edge != edges.get(face.edge));
+
+            c.div(n);
+
+            float d = center.distance(c);
+
+            if(d < min) {
+                found = face;
+                min = d;
+            }
+        }
+        return found;
+    }
+
+    public Face findFace(float centerX, float centerY, float centerZ) {
+        return findFace(new Vec3(centerX, centerY, centerZ));
+    }
  
     public Face addFace(int ... indices) throws Exception {
         if(indices.length < 3) {
@@ -251,7 +283,7 @@ public class HEMesh {
         }
     }
 
-    private Edge prevEdge(Edge edge) {
+    public Edge prevEdge(Edge edge) {
         Edge p = edge;
  
         while(edges.get(p.next) != edge) {
@@ -309,7 +341,7 @@ public class HEMesh {
  
             do {
                 vs.add(edge.vertex);
-                ts.add(vec2(edge.textureCoordinate.x, edge.textureCoordinate.y));
+                ts.add(new Vec2(edge.textureCoordinate.x, edge.textureCoordinate.y));
                 edge = edges.get(edge.next);
             } while(edge != first);
  
@@ -340,15 +372,8 @@ public class HEMesh {
         }
     }
  
-    private static Vec2 vec2(float x, float y) {
-        Vec2 v = new Vec2();
- 
-        v.set(x, y);
-        return v;
-    }
- 
     private static Vec2 mid(Vec2 a, Vec2 b) {
-        return vec2((a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f);
+        return new Vec2((a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f);
     }
  
     public void calcNormals(boolean smooth) {
@@ -463,7 +488,7 @@ public class HEMesh {
                 }
  
                 int center = addVertex(cx / n, cy / n, cz / n).index;
-                Vec2 uvc = vec2(cu / n, cv / n);
+                Vec2 uvc = new Vec2(cu / n, cv / n);
                 int[] m = new int[n];
  
                 for(int k = 0; k != n; k++) {
@@ -487,9 +512,9 @@ public class HEMesh {
  
                     newIdx.add(new int[] { c[k], m[k], center, m[p] });
                     newUV.add(new Vec2[] {
-                        vec2(uv[k].x, uv[k].y),
+                        new Vec2(uv[k].x, uv[k].y),
                         mid(uv[k], uv[(k + 1) % n]),
-                        vec2(uvc.x, uvc.y),
+                        new Vec2(uvc.x, uvc.y),
                         mid(uv[p], uv[k])
                     });
                 }
@@ -657,15 +682,15 @@ public class HEMesh {
  
             faceIdx.add(new int[] { c[k], c[j], top[j], top[k] });
             faceUV.add(new Vec2[] {
-                vec2(uv[k].x, uv[k].y), vec2(uv[j].x, uv[j].y),
-                vec2(uv[j].x, uv[j].y), vec2(uv[k].x, uv[k].y)
+                new Vec2(uv[k].x, uv[k].y), new Vec2(uv[j].x, uv[j].y),
+                new Vec2(uv[j].x, uv[j].y), new Vec2(uv[k].x, uv[k].y)
             });
         }
  
         Vec2[] capUV = new Vec2[n];
  
         for(int k = 0; k != n; k++) {
-            capUV[k] = vec2(uv[k].x, uv[k].y);
+            capUV[k] = new Vec2(uv[k].x, uv[k].y);
         }
         faceIdx.add(top);
         faceUV.add(capUV);

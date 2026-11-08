@@ -52,22 +52,22 @@ public class Basic4 extends Demo {
         mesh.addFace(1, 5, 6, 2);
 
         mesh.calcNormals(false);
-        mesh.extrude(0, 50);
+        mesh.extrude(mesh.findFace(0, 0, -50).index, 50);
 
         mesh.calcNormals(false);
-        mesh.extrude(1, 50);
+        mesh.extrude(mesh.findFace(0, 0, 50).index, 50);
 
         mesh.calcNormals(false);
-        mesh.extrude(2, 50);
+        mesh.extrude(mesh.findFace(-50, 0, 0).index, 50);
 
         mesh.calcNormals(false);
-        mesh.extrude(1, 50);
+        mesh.extrude(mesh.findFace(50, 0, 0).index, 50);
 
         mesh.calcNormals(false);
-        mesh.extrude(0, 50);
+        mesh.extrude(mesh.findFace(0, -50, 0).index, 50);
 
         mesh.calcNormals(false);
-        mesh.extrude(0, 50);
+        mesh.extrude(mesh.findFace(0, 50, 0).index, 50);
 
         mesh.calcNormals(false);
         mesh.calcTextureCoordinate(100);
