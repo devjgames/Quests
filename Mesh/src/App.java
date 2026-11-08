@@ -33,6 +33,7 @@ public class App {
             demos.add(new Basic1());
             demos.add(new Basic2());
             demos.add(new Basic3());
+            demos.add(new Basic4());
 
             if(!demos.isEmpty()) {
                 selDemo = 0;
