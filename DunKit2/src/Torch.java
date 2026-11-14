@@ -47,6 +47,7 @@ public class Torch extends Model {
         ps.texture = gs.game.getResources().load(new File("fire.png"));
 
         node.data.put("ps", ps);
+        node.data.put("acm", 0.0f);
     }
 
     @Override
@@ -54,28 +55,37 @@ public class Torch extends Model {
         super.update(gs, node);
 
         ParticleSystem ps = (ParticleSystem)node.data.get("ps");
-        float startColor = 0.15f + random.nextFloat() * 0.15f;
-        float startSize = 5 + random.nextFloat() * 10;
-        
-        particle.velocityY = 10 + random.nextFloat() * 10;
-        particle.positionX = -2 + random.nextFloat() * 4;
-        particle.positionY = -2 + random.nextFloat() * 4 + 30;
-        particle.positionZ = -2 + random.nextFloat() * 4;
-        particle.startR = startColor;
-        particle.startG = startColor;
-        particle.startB = startColor;
-        particle.startA = 1;
-        particle.endR = 0;
-        particle.endG = 0;
-        particle.endB = 0;
-        particle.endA = 1;
-        particle.startX = startSize;
-        particle.startY = startSize;
-        particle.endX = 1;
-        particle.endY = 1;
-        particle.lifeSpan = 0.5f + random.nextFloat() * 1.5f;
+        float acm = (Float)node.data.get("acm");
 
-        ps.emit(particle, gs);
+        acm += gs.game.getElapsedTime();
+
+        while(acm >= 0) {
+            float startColor = 0.15f + random.nextFloat() * 0.15f;
+            float startSize = 5 + random.nextFloat() * 10;
+            
+            particle.velocityY = 10 + random.nextFloat() * 10;
+            particle.positionX = -2 + random.nextFloat() * 4;
+            particle.positionY = -2 + random.nextFloat() * 4 + 30;
+            particle.positionZ = -2 + random.nextFloat() * 4;
+            particle.startR = startColor;
+            particle.startG = startColor;
+            particle.startB = startColor;
+            particle.startA = 1;
+            particle.endR = 0;
+            particle.endG = 0;
+            particle.endB = 0;
+            particle.endA = 1;
+            particle.startX = startSize;
+            particle.startY = startSize;
+            particle.endX = 1;
+            particle.endY = 1;
+            particle.lifeSpan = 0.5f + random.nextFloat() * 1.5f;
+
+            ps.emit(particle, gs);
+
+            acm -= 1 / 120.0f;
+        }
+        node.data.put("acm", acm);
     }
 
     @Override
