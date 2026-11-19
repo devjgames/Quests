@@ -20,8 +20,12 @@ public class GameSystem2 extends GameSystem {
             new Model("orb.obj"),
             new Model("side.obj"),
             new Model("axis.obj"),
+            new Model("lava.obj"),
+            new Model("bridge.obj"),
             new Torch(),
-            new Player()
+            new Player(),
+            new Worm(),
+            new Lever()
         );
     }
 

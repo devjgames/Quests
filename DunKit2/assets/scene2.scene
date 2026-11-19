@@ -1,0 +1,44 @@
+# name x y z rx ry rz ux uy uz fx fy fz
+lava.obj 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+bridge.obj 0.0 -64.0 0.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 b1
+# name x y z rx ry rz ux uy uz fx fy fz
+axis.obj 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj 64.0 0.0 -64.0 -1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -64.0 0.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -64.0 0.0 64.0 -1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj 0.0 0.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj 64.0 0.0 64.0 -1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+door-way.obj 0.0 0.0 -64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj -64.0 0.0 -64.0 0.0 0.0 1.0 0.0 1.0 0.0 -1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-short.obj 0.0 0.0 -128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -64.0 0.0 -64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+door.obj 0.0 0.0 -128.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj 64.0 0.0 128.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj -64.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj 0.0 0.0 128.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+coins.obj 64.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+energy.obj 0.0 65.0 158.0 1.0 0.0 0.0 0.0 0.0 -1.0 0.0 1.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-end.obj 0.0 0.0 -192.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch 0.0 0.0 -192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+lever 64.0 0.0 -64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 b1
+# name x y z rx ry rz ux uy uz fx fy fz
+player 0.0 24.0 64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 

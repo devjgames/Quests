@@ -43,9 +43,18 @@ public class Model extends GameComponent {
             mesh.put(MeshLoader.AMBIENT_COLOR, new Vec4(0.35f, 0.35f, 0.35f, 1));
             node.data.put("y", node.position.y);
         } else if(meshName.equals("torch.obj")) {
-            mesh.put(MeshLoader.POSITION, new Vec3(28, 0, 0));
+            GameNode child = new GameNode();
+
+            child.name = "torch";
+            child.position.set(28, 0, 0);
+            node.addChild(child);
         } else {
             mesh.put(MeshLoader.AMBIENT_COLOR, new Vec4(0.75f, 0.75f, 0.75f, 1));
+            if(meshName.equals("bridge.obj")) {
+                node.data.put("up", true);
+                node.data.put("y", node.position.y);
+                node.data.put("raise-lower", false);
+            }
         }
         node.data.put("mesh", mesh);
     }
@@ -54,7 +63,11 @@ public class Model extends GameComponent {
     public boolean pick(GameSystem gs, GameNode node, Vec3 origin, Vec3 direction, float[] time) throws Exception {
         Mesh mesh = (Mesh)node.data.get("mesh");
 
-        mesh.calcBoundsAndTransform(node);
+        if(meshName.equals("torch.obj")) {
+            mesh.calcBoundsAndTransform(node.find("torch"));
+        } else {
+            mesh.calcBoundsAndTransform(node);
+        }
 
         return mesh.pick(origin, direction, time);
     }
@@ -82,6 +95,32 @@ public class Model extends GameComponent {
             float a = 1 - Math.min(d / 75, 1);
 
             node.position.y = (float)node.data.get("y") - a * 150;
+        } else if(meshName.equals("bridge.obj")) {
+            if(gs.inDesign()) {
+                return ;
+            }
+            boolean raiseLower = (Boolean)node.data.get("raise-lower");
+
+            if(raiseLower) {
+                boolean up = (Boolean)node.data.get("up");
+                float y = (Float)node.data.get("y");
+
+                if(up) {
+                    node.position.y += 16 * gs.game.getElapsedTime();
+                    if(node.position.y > y + 64) {
+                        node.position.y = y + 64;
+                        node.data.put("raise-lower", false);
+                        node.data.put("up", false);
+                    }
+                } else {
+                    node.position.y -= 16 * gs.game.getElapsedTime();
+                    if(node.position.y < y) {
+                        node.position.y = y;
+                        node.data.put("raise-lower", false);
+                        node.data.put("up", true);
+                    }
+                }
+            }
         }
     }
 
@@ -106,19 +145,22 @@ public class Model extends GameComponent {
             decal = gs.game.getResources().load(new File("door-glow.png"));
         }
 
-        render(gs, node, renderer, meshName.equals("orb.obj"), decal);
-    }
 
-    protected void render(GameSystem gs, GameNode node, BasicRenderer renderer, boolean warp, Texture decal) throws Exception {
         Mesh mesh = (Mesh)node.data.get("mesh");
 
-        mesh.calcBoundsAndTransform(node);
+        if(meshName.equals("torch.obj")) {
+            mesh.calcBoundsAndTransform(node.find("torch"));
+        } else {
+            mesh.calcBoundsAndTransform(node);
+        }
 
         if(gs.frustum.testAab(mesh.bounds)) {
             for(int i = 0; i != mesh.getPartCount(); i++) {
                 MeshPart part = mesh.getPart(i);
 
                 if(gs.frustum.testAab(part.bounds)) {
+                    String name = part.get(MeshLoader.NAME);
+
                     renderer.setTexture(part.get(MeshLoader.TEXTURE));
                     renderer.setAmbientColor(mesh.get(MeshLoader.AMBIENT_COLOR));
                     renderer.setDiffuseColor(mesh.get(MeshLoader.DIFFUSE_COLOR));
@@ -126,7 +168,15 @@ public class Model extends GameComponent {
                     renderer.setModelIT(mesh.modelIT);
                     renderer.setLightingEnabled(true);
 
-                    ((BasicRenderer2)renderer).setWarp(warp, gs.game.getTotalTime() * 2);
+                    if(meshName.equals("orb.obj")) {
+                        ((BasicRenderer2)renderer).setWarp(true, gs.game.getTotalTime() * 2, 2, 0.25f, true);
+                    } else if(meshName.equals("lava.obj") && name.equals("Lava")) {
+                        ((BasicRenderer2)renderer).setWarp(true, gs.game.getTotalTime() * 2, 4, 0.15f, true);
+                        renderer.setAmbientColor(1, 1, 1, 1);
+                        renderer.setDiffuseColor(0, 0, 0, 1);
+                    } else {
+                        ((BasicRenderer2)renderer).setWarp(false, 0, 0, 0, false);
+                    }
                     ((BasicRenderer2)renderer).setDecal(decal);
 
                     renderer.draw(part.vertexBuffer, part.vertexElementBuffer);
@@ -134,6 +184,7 @@ public class Model extends GameComponent {
             }
         }
     }
+
 
     @Override
     public String toString() {

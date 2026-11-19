@@ -101,7 +101,7 @@ public class Torch extends Model {
         ParticleSystem ps = (ParticleSystem)node.data.get("ps");
         Mesh mesh = (Mesh)node.data.get("mesh");
 
-        mesh.calcBoundsAndTransform(node);
+        mesh.calcBoundsAndTransform(node.find("torch"));
 
         ps.update(gs, mesh.model);
 
@@ -114,7 +114,7 @@ public class Torch extends Model {
             renderer.setModelIT(mesh.modelIT);
             renderer.setLightingEnabled(false);
             renderer.setTexture(ps.texture);
-            ((BasicRenderer2)renderer).setWarp(false, 0);
+            ((BasicRenderer2)renderer).setWarp(false, 0, 0, 0, false);
             ((BasicRenderer2)renderer).setDecal(null);
 
             renderer.draw(ps.vertexBuffer);
