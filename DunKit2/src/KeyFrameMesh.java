@@ -29,8 +29,10 @@ public class KeyFrameMesh extends Resource {
         for(File file : files) {
             frames.add(Game.getInstance().getResources().load(new File(directory.getName(), file.getName())));
         }
-        return new KeyFrameMesh(frames);
+        return new KeyFrameMesh(frames, directory);
     }
+
+    public final File file;
 
     private Vector<Mesh> frames;
     private Mesh mesh;
@@ -43,8 +45,9 @@ public class KeyFrameMesh extends Resource {
     private boolean looping = false;
     private boolean paused = false;
 
-    public KeyFrameMesh(Vector<Mesh> frames) throws Exception {
+    public KeyFrameMesh(Vector<Mesh> frames, File file) throws Exception {
         this.frames = frames;
+        this.file = file;
 
         mesh = new Mesh();
 
@@ -53,6 +56,7 @@ public class KeyFrameMesh extends Resource {
 
     public KeyFrameMesh(KeyFrameMesh keyFrameMesh) throws Exception {
         frames = keyFrameMesh.frames;
+        file = keyFrameMesh.file;
 
         mesh = new Mesh();
 

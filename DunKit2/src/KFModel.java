@@ -28,11 +28,17 @@ public class KFModel extends GameComponent {
         mesh = gs.game.getResources().manage(new KeyFrameMesh(mesh));
 
         if(meshName.equals("worm")) {
-            mesh.setSequence(0, mesh.getCount() - 1, 7, true);
+            mesh.setSequence(0, mesh.getCount() - 1, 16, true);
+            node.scale.mul(0.7f);
+            if(!gs.inDesign()) {
+                node.data.put("center", new Vec3(node.position));
+                node.position.x += 50;
+            }
         } else if(meshName.equals("lever")) {
             node.data.put("on", false);
         }
         node.data.put("mesh", mesh);
+
     }
 
     @Override
@@ -47,6 +53,17 @@ public class KFModel extends GameComponent {
         KeyFrameMesh mesh = (KeyFrameMesh)node.data.get("mesh");
 
         mesh.update();
+
+        if(gs.inDesign()) {
+            return ;
+        }
+
+        if(meshName.equals("worm")) {
+            node.r.x = (float)Math.cos(gs.game.getTotalTime() * 0.5f);
+            node.r.z = (float)Math.sin(gs.game.getTotalTime() * 0.5f);
+            node.r.cross(node.u.set(0, 1, 0), node.f).normalize();
+            node.position.set((Vec3)node.data.get("center")).add(-node.r.z * 50, 0, node.r.x * 50);
+        }
     }
 
     @Override

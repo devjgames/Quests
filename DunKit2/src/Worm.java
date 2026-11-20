@@ -17,9 +17,9 @@ public class Worm extends KFModel {
                 node.data.put("light", light = new GameLight());
             }
 
-            light.radius = 100;
+            light.radius = 75;
             light.color.set(0, 2, 4, 1);
-            light.position.set(node.position).add(0, 64, 0);
+            light.position.set(node.position).add(0, 50, 0);
 
             return light;
         }

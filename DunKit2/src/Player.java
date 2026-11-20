@@ -334,6 +334,13 @@ public class Player extends Model implements ContactHandler {
                         }
                     }
                 }
+            } else if(obj instanceof KeyFrameMesh) {
+                KeyFrameMesh mesh = (KeyFrameMesh)obj;
+
+                if(mesh.file.getName().equals("worm")) {
+                    load = true;
+                    death.play(false);
+                }
             }
         }
     }
