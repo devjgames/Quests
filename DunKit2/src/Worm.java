@@ -19,7 +19,7 @@ public class Worm extends KFModel {
 
             light.radius = 75;
             light.color.set(0, 2, 4, 1);
-            light.position.set(node.position).add(0, 50, 0);
+            light.position.set(node.position).add(0, 50 + (float)Math.sin(gs.game.getTotalTime() * 8) * 10, 0);
 
             return light;
         }

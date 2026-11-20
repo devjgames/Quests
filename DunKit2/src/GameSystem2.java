@@ -25,8 +25,7 @@ public class GameSystem2 extends GameSystem {
             new Torch(),
             new Player(),
             new Worm(),
-            new Lever(),
-            new Player2()
+            new Lever()
         );
     }
 

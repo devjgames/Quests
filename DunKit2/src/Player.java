@@ -75,6 +75,8 @@ public class Player extends Model implements ContactHandler {
         gs.up.set(node.u);
 
         gs.game.setMouseGrabbed(true);
+
+        gs.game.resetTimer();
     }
 
     @Override

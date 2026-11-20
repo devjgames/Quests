@@ -26,8 +26,6 @@ public class App {
 
             GameSystem gs = new GameSystem2();
 
-            gs.backgroundColor.set(0, 0, 0, 1);
-
             game.resetTimer();
 
             while(game.beginFrame()) {
