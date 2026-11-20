@@ -16,6 +16,8 @@ import org.game.Vec4;
 
 public class Model extends GameComponent {
 
+    protected static boolean doorTarget = false;
+
     private String meshName;
 
     public Model(String meshName) {
@@ -48,6 +50,15 @@ public class Model extends GameComponent {
             child.name = "torch";
             child.position.set(28, 0, 0);
             node.addChild(child);
+        } else if(meshName.equals("cube.obj")) {
+            GameNode child = new GameNode();
+
+            child.name = "face";
+            node.addChild(child);
+            child.addChild(new GameNode());
+            child.getChild(0).name = "cube";
+            mesh.put(MeshLoader.AMBIENT_COLOR, new Vec4(1, 1, 1, 1));
+            mesh.put(MeshLoader.DIFFUSE_COLOR, new Vec4(0, 0, 0, 1));
         } else {
             mesh.put(MeshLoader.AMBIENT_COLOR, new Vec4(0.75f, 0.75f, 0.75f, 1));
             if(meshName.equals("bridge.obj")) {
@@ -65,6 +76,8 @@ public class Model extends GameComponent {
 
         if(meshName.equals("torch.obj")) {
             mesh.calcBoundsAndTransform(node.find("torch"));
+        } else if(meshName.equals("cube.obj")) {
+            mesh.calcBoundsAndTransform(node.find("cube"));
         } else {
             mesh.calcBoundsAndTransform(node);
         }
@@ -85,8 +98,8 @@ public class Model extends GameComponent {
                 return ;
             }
 
-            float ex = gs.eye.x;
-            float ez = gs.eye.z;
+            float ex = (doorTarget) ? gs.target.x : gs.eye.x;
+            float ez = (doorTarget) ? gs.target.z : gs.eye.z;
             float px = node.position.x;
             float pz = node.position.z;
             float dx = px - ex;
@@ -150,6 +163,8 @@ public class Model extends GameComponent {
 
         if(meshName.equals("torch.obj")) {
             mesh.calcBoundsAndTransform(node.find("torch"));
+        } else if(meshName.equals("cube.obj")) {
+            mesh.calcBoundsAndTransform(node.find("cube"));
         } else {
             mesh.calcBoundsAndTransform(node);
         }
@@ -183,6 +198,11 @@ public class Model extends GameComponent {
                 }
             }
         }
+    }
+
+    @Override
+    public void finish() throws Exception {
+        doorTarget = false;
     }
 
 

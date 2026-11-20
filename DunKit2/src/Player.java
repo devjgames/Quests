@@ -1,6 +1,5 @@
 import java.io.File;
 
-import org.game.AABB;
 import org.game.BasicRenderer;
 import org.game.CameraHelper;
 import org.game.Collider;
@@ -23,41 +22,6 @@ import org.game.Vec3;
 import org.game.Collider.ContactHandler;
 
 public class Player extends Model implements ContactHandler {
-
-    public static class GameNodeSelector implements TriangleSelector {
-
-        private GameNode node;
-
-        public GameNodeSelector(GameNode node) {
-            this.node = node;
-        }
-
-        public GameNode getNode() {
-            return node;
-        }
-
-        @Override
-        public void select(AABB bounds, Object userData, Visitor vistitor) {
-            try {
-                Object obj = node.data.get("mesh");
-
-                if(obj instanceof KeyFrameMesh) {
-                    KeyFrameMesh mesh = (KeyFrameMesh)obj;
-
-                    mesh.getMesh().calcBoundsAndTransform(node);
-                    mesh.getMesh().select(bounds, userData, vistitor);
-                } else {
-                    Mesh mesh = (Mesh)obj;
-
-                    mesh.calcBoundsAndTransform(node);
-                    mesh.select(bounds, userData, vistitor);
-                }
-            } catch(Exception ex) {
-                Log.getInstance().put(0, ex);
-            }
-        }
-
-    }
 
     private Collider collider = new Collider();
     private Vec3 f = new Vec3();
@@ -298,7 +262,7 @@ public class Player extends Model implements ContactHandler {
                 "TRI = " + basicRenderer.getTrianglesRendered() + "\n" +
                 "TST = " + collider.getTested() + "\n" +
                 "POS = " + (int)gs.eye.x + ", " + (int)gs.eye.y + ", " + (int)gs.eye.z + "\n",
-                16, 10, 12, s, 5, 10 * s, 10 * s, 1, 1, 0, 1, 1, 0.5f, 0, 1
+                16, 10, 12, s * 2, 5, 10 * s, 10 * s, 1, 1, 0, 1, 1, 0.5f, 0, 1
             );
             if(!gs.inDesign()) {
                 spriteRenderer.push(

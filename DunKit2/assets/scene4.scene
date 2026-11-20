@@ -1,0 +1,94 @@
+# name x y z rx ry rz ux uy uz fx fy fz
+lava.obj 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+bridge.obj 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 b1
+# name x y z rx ry rz ux uy uz fx fy fz
+axis.obj 0.0 0.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj 64.0 0.0 -64.0 -1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj 0.0 0.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj 64.0 0.0 64.0 -1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+door-way.obj 0.0 0.0 -64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj -64.0 0.0 -64.0 0.0 0.0 1.0 0.0 1.0 0.0 -1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-short.obj 0.0 0.0 -128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -64.0 0.0 -64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+door.obj 0.0 0.0 -128.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+coins.obj 64.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-end.obj 0.0 0.0 -192.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch 0.0 0.0 -192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch 64.0 0.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -128.0 0.0 64.0 0.0 0.0 1.0 0.0 1.0 0.0 -1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+lava.obj -192.0 0.0 128.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -128.0 0.0 192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj -128.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj -256.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj -320.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+door-way.obj -320.0 0.0 64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -256.0 0.0 64.0 0.0 0.0 1.0 0.0 1.0 0.0 -1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj -384.0 0.0 64.0 0.0 0.0 1.0 0.0 1.0 0.0 -1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -384.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj -384.0 0.0 192.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -320.0 0.0 192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -256.0 0.0 192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj -64.0 0.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj -64.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+flats.obj 0.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj -64.0 0.0 192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj 0.0 0.0 192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+corner.obj 64.0 0.0 192.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+side.obj 64.0 0.0 128.0 -1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+bridge.obj -192.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -128.0 0.0 64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -256.0 0.0 192.0 0.0 0.0 1.0 0.0 1.0 0.0 -1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -384.0 0.0 64.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+coins.obj -384.0 0.0 192.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-short.obj -320.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-short.obj -320.0 0.0 -64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+hall-end.obj -320.0 0.0 -128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+torch -320.0 0.0 -96.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+door.obj -320.0 0.0 0.0 0.0 0.0 -1.0 0.0 1.0 0.0 1.0 0.0 0.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+worm -320.0 0.0 128.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
+# name x y z rx ry rz ux uy uz fx fy fz
+player2 0.0 32.0 64.0 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 
